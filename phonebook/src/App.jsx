@@ -2,18 +2,24 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1234567' }
   ])
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const onNameChange = (e) => {
     setNewName(e.target.value)
   }
 
+  const onNumberChange = (e) => {
+    setNewNumber(e.target.value)
+  }
+
   const addNewName = (e) => {
     e.preventDefault()
     const personObject = {
-      name: newName
+      name: newName,
+      number: newNumber
     }
     const names = persons.map(person => person.name)
     if (names.indexOf(newName) > -1) {
@@ -22,6 +28,7 @@ const App = () => {
       setPersons(persons.concat(personObject))
     }
     setNewName('')
+    setNewNumber('')
   }
 
   return (
@@ -32,13 +39,16 @@ const App = () => {
           name: <input value={newName} onChange={onNameChange} />
         </div>
         <div>
+          number: <input value={newNumber} onChange={onNumberChange} />
+        </div>
+        <div>
           <button type='submit'>add</button>
         </div>
       </form>
       <h2>Numbers</h2>
       <div>
         <ul>
-          {persons.map((person, index) => <li key={person.name}>{person.name}</li>)}
+          {persons.map((person, index) => <li key={person.name}>{person.name} {person.number}</li>)}
         </ul>
       </div>
     </div>

@@ -7,7 +7,7 @@ const Persons = ({ persons, filter }) => {
     return (
         <div>
             <ul>
-                {personsToShow.map((person, index) => <Person key={person.id} name={person.name} number={person.number} />)}
+                {personsToShow.map((person) => <Person key={person.id} name={person.name} number={person.number} />)}
             </ul>
         </div>
     )

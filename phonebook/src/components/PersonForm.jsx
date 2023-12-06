@@ -21,8 +21,16 @@ const PersonForm = ({ persons, setPersons }) => {
             number: newNumber
         }
         const names = persons.map(person => person.name)
-        if (names.indexOf(newName) > -1) {
-            alert(`${newName} is already added to phonebook`)
+        const index = names.indexOf(newName)
+        if (index > -1) {
+            if (window.confirm(`${newName} is already added to phonebook. replace the old number with a new one?`)) {
+                personService.update(persons[index].id, personObject)
+                    .then(returnedPerson => {
+                        const newPersons = [...persons]
+                        newPersons[index].number = returnedPerson.number
+                        setPersons(newPersons)
+                    })
+            }
         } else {
             personService.create(personObject)
                 .then(returnedPerson => {
